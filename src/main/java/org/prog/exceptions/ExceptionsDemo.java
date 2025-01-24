@@ -19,21 +19,7 @@ public class ExceptionsDemo {
 //        System.out.println(carOne.hashCode());
 //        System.out.println(carTwo.hashCode());
 
-        try {
-            smth1(null);
-        } catch (NullPointerException npe) {
-            System.out.println("Oops, NPE!!");
-            //UNCHECKED
-        } catch (RuntimeException rte) {
-            System.out.println("RTE!!!");
-        } catch (Exception e) {
-            System.out.println("Exception!!");
-        } catch (Throwable t) {
-            System.out.println("Throwable!");
-        } finally {
-            System.out.println("this will always work!");
-        }
-        System.out.println("after exception");
+        smth1(null);
     }
 
     public static void smth1(String s) {
@@ -41,7 +27,11 @@ public class ExceptionsDemo {
     }
 
     public static void smth2(String s) {
-        smth3(s);
+        try {
+            smth3(s);
+        } catch (Exception e) {
+            System.out.println("OOPS!");
+        }
     }
 
     public static void smth3(String s) {
