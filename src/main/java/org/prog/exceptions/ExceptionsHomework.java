@@ -17,7 +17,15 @@ public class ExceptionsHomework {
         //Car carThree = new Car(null);
         //System.out.println(carThree.color.length());
         //smth1(s:null);
-        smth(null);
+
+        try {
+            smth(null);
+        } catch (NullPointerException npe) {
+            System.out.println("EXCEPTION CAUGHT!");
+        } finally {
+            System.out.println("DONE TRY-CATCH-FINALLY");
+        }
+        System.out.println("Let's continue!");
     }
 
     public static void smth(String s) {
