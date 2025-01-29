@@ -3,8 +3,11 @@ package org.prog.parent;
 //TODO: add destination parameter to method goTo
 
 public class Car {
+    public String owner;
 
     public String color;
+
+    //public Car(String owner){this.owner = owner;}
 
     public Car(String color) {
         this.color = color;
