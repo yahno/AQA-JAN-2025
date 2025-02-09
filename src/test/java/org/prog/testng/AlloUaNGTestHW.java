@@ -1,12 +1,13 @@
 package org.prog.testng;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
+
+import static org.testng.Assert.*;
 
 //TODO: create separate test-ng.xml file with this class only
 //TODO: move your selenium test to this class
@@ -15,32 +16,44 @@ import org.testng.annotations.Test;
 
 public class AlloUaNGTestHW {
 
-    @Test
-public void ngTest1(){
-        System.out.println("And what next?");
+    private WebDriver driver;
+
+    @BeforeSuite
+    public void setUp() {
+        driver = new EdgeDriver();
     }
 
-    @Test
-public void ngTest2() throws InterruptedException {
-        WebDriver driver = null;
-        try {
-            driver = new EdgeDriver();
-            driver.get("https://allo.ua/ua");
-            WebElement searchInput = driver.findElement(By.name("search"));
-            searchInput.sendKeys("xiaomi");
-            searchInput.sendKeys(Keys.ENTER);
-            Thread.sleep(500);
-            WebElement model = driver.findElement(By.xpath("//div[@class='product-card__content']/a[@href='https://allo.ua/ua/products/mobile/xiaomi-redmi-note-14-pro-8-256gb-midnight-black.html']"));
-            System.out.println(model.getText());
-           // Assert.assertNotNull(model, "not Empty");
-        } finally {
-            if (driver !=null){
-                driver.quit();
-            }
+    @AfterSuite
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
         }
-
     }
 
+    @Test
+    public void testAllo() throws InterruptedException {
+        driver.get("https://allo.ua/ua");
+        WebElement searchInput = driver.findElement(By.name("search"));
+        searchInput.sendKeys("xiaomi");
+        searchInput.sendKeys(Keys.ENTER);
+        Thread.sleep(500);
+        WebElement model = driver.findElement(By.xpath("//div[@class='product-card__content']/a[@href='https://allo.ua/ua/products/mobile/xiaomi-redmi-note-14-pro-8-256gb-midnight-black.html']"));
+        System.out.println(model.getText());
+        //Assert.assertEquals(s.length(), length, "String length mismatch!");
+        //Assert.assertTrue(imagesEmpty.isEmpty(),"Expected list of images to eb empty because image is in iframe!");
+        //Assert.assertFalse(imagesPresent.isEmpty(),"Expected list of images to be NOT empty because selenium is INSIDE iframe!");
+
+        //parseBoolean анализирует строковый аргумент как логический
+        Assert.assertFalse(Boolean.parseBoolean(model.getText()), "Expected name to be NOT empty");
+
+        /*var size = model.getSize();
+        System.out.println(size);*/
+
+        String l = model.getText();
+        int stringLength = l.length();
+        System.out.println("length name " + stringLength);
+        Assert.assertNotNull(stringLength, "Expected name to be NOT null");
 
 
+    }
 }
