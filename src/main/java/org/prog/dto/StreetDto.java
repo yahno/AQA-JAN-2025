@@ -1,5 +1,4 @@
 package org.prog.dto;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,9 +6,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PersonDto {
-    public String gender;
-    public String nat;
-    public NameDto name;
-    public LocationDto location;
+
+public class StreetDto {
+    private Integer number;
+    private String name;
 }
