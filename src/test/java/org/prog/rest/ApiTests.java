@@ -1,10 +1,14 @@
 package org.prog.rest;
 
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import org.prog.dto.ResultsDto;
 import org.testng.annotations.Test;
+
+import static org.hamcrest.core.IsEqual.equalTo;
 
 public class ApiTests {
 
@@ -27,10 +31,10 @@ public class ApiTests {
 //        Assert.assertEquals(value, "female");
        response.prettyPrint();
 //
-//        ValidatableResponse validatableResponse = response.then();
-//        validatableResponse.statusCode(200);
-//        validatableResponse.contentType(ContentType.JSON);
-//        validatableResponse.body("results[0].gender", equalTo("male"));
+       ValidatableResponse validatableResponse = response.then();
+       validatableResponse.statusCode(200);
+       validatableResponse.contentType(ContentType.JSON);
+       validatableResponse.body("results[0].gender", equalTo("male"));
 
 
     }
