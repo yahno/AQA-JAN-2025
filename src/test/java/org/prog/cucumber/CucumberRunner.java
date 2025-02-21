@@ -26,7 +26,7 @@ public class CucumberRunner extends AbstractTestNGCucumberTests {
         WebSteps.driver = getRemoteDriver();
         Class.forName("com.mysql.cj.jdbc.Driver");
         SqlSteps.connection =
-                DriverManager.getConnection("jdbc:mysql://localhost:3306/db", "user", "password");
+                DriverManager.getConnection("jdbc:mysql://mysql-db-1:3306/db", "user", "password");
     }
 
     @AfterSuite
