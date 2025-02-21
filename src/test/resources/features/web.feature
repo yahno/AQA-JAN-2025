@@ -3,10 +3,10 @@ Feature: Some feature we want to test
   Background: open web site
     Given I open web site
 
-#  Scenario: Test W3Schools Iframe Content
-#    Given I load W3Shcools Page
-#    When I accept cookies if present
-#    Then I can see content of iFrame
+  Scenario: Test W3Schools Iframe Content
+    Given I load W3Shcools Page
+    When I accept cookies if present
+    Then I can see content of iFrame
 
   Scenario Outline: Test W3Schools Iframe Content
     And I press register new user
