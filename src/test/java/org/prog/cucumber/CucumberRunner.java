@@ -7,6 +7,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.prog.cucumber.steps.SqlSteps;
 import org.prog.cucumber.steps.WebSteps;
+import org.prog.pages.GooglePage;
+import org.prog.pages.W3SchoolsPage;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
@@ -20,15 +22,17 @@ import java.sql.SQLException;
         glue = "org.prog.cucumber.steps",
         plugin = {"pretty",
                 "json:target/cucumber-reports/Cucumber.json",
-                "html:target/cucumber-report.html",
-                "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"
+                "html:target/cucumber-report.html"
         }
 )
 public class CucumberRunner extends AbstractTestNGCucumberTests {
 
+    private WebDriver driver;
+
     @BeforeSuite
     public void setUp() throws ClassNotFoundException, SQLException, MalformedURLException {
-        WebSteps.driver = getRemoteDriver();
+        this.driver = getRemoteDriver();
+        WebSteps.w3SchoolsPage = new W3SchoolsPage(driver);
         Class.forName("com.mysql.cj.jdbc.Driver");
         SqlSteps.connection =
                 DriverManager.getConnection("jdbc:mysql://mysql-db-1:3306/db", "user", "password");
@@ -37,8 +41,8 @@ public class CucumberRunner extends AbstractTestNGCucumberTests {
     @AfterSuite
     public void tearDown() throws SQLException {
         SqlSteps.connection.close();
-        if (WebSteps.driver != null) {
-            WebSteps.driver.quit();
+        if (driver != null) {
+            driver.quit();
         }
     }
 
