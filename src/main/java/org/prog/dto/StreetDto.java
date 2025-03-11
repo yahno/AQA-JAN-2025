@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class StreetDto {
-    private Integer number;
+    private String number;
     private String name;
 }
