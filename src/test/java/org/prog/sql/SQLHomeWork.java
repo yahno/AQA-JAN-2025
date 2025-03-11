@@ -70,7 +70,6 @@ public class SQLHomeWork {
         requestSpecification.queryParam("inc", "gender,name,nat,location");
         requestSpecification.queryParam("noinfo");
         requestSpecification.queryParam("results", "10  ");
-
         Response response = requestSpecification.get();
 
         return response.as(ResultsDto.class).getResults();
