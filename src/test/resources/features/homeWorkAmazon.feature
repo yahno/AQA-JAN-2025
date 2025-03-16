@@ -7,6 +7,6 @@ TODO: Homework * : Create table Products : ProductId, ProductName, ProductPrice
 
 Scenario: Create table Products
 Given I using selenium go to amazon.com and search for a redmi
-Given I get ProductName and ProductPrice price
+Given I request ProductName and ProductPrice price
 When I store ProductName and ProductPrice to DB
 Then I print that ProductName and ProductPrice to console
