@@ -1,4 +1,11 @@
 package org.prog.cucumber;
 
-public class CucumberRunnerAmazon {
+import io.cucumber.testng.AbstractTestNGCucumberTests;
+import io.cucumber.testng.CucumberOptions;
+
+@CucumberOptions(
+        features = "src/test/resources/features",
+        glue = "org.prog.cucumber.steps"
+)
+public class CucumberRunnerAmazon extends AbstractTestNGCucumberTests {
 }
