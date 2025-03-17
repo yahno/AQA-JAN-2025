@@ -22,15 +22,16 @@ public class SqlStepsAmazon {
         Connection connection =
                 DriverManager.getConnection("jdbc:mysql://localhost:3306/db", "user", "password");
 
-        PreparedStatement preparedStatement = connection.prepareStatement("select * from Persons where Gender= ?");
-        preparedStatement.setString(1, "female");
-        ResultSet resultSet = preparedStatement.executeQuery();
+        PreparedStatement preparedStatement = connection.prepareStatement("select * from Products where Currency=? limit 10");
+        preparedStatement.setString(1, "USD");
+        ResultSet resultSet = preparedStatement.executeQuery(); // вивод результатів
         while (resultSet.next()) {
-            System.out.println(resultSet.getString("FirstName") + " " + resultSet.getString("LastName"));
+            System.out.println(resultSet.getString("Title") + " " + resultSet.getString("Cost"));
         }
         connection.close();
     }
 
+    //записуємо в базу даних
     @Test
     public void sqlWrite() throws SQLException, ClassNotFoundException {
         List<ProductsDto> products = getProducts();
@@ -39,25 +40,18 @@ public class SqlStepsAmazon {
                 DriverManager.getConnection("jdbc:mysql://localhost:3306/db", "user", "password");
 
         PreparedStatement preparedStatement = connection.prepareStatement(
-                "INSERT INTO Persons (Title, Currency, Cost) VALUES " +
-                        "(?, ?, ?)");
-
+                "INSERT INTO Persons (Title, Currency, Cost) VALUES " + "(?, ?, ?)");
         for (ProductsDto product : products) {
             preparedStatement.setString(1, product.getTitle().getDisplayValue());
             preparedStatement.setString(2, product.getCost().getPrice().getCurrency());
             preparedStatement.setString(3, product.getCost().getPrice().getDisplayAmount());
-            try {
-                preparedStatement.execute();
-            } catch (SQLException e) {
-                System.out.println("Failed to store in DB : " + product.getTitle().getDisplayValue() + " " + product.getCost().getPrice());
-            }
         }
         connection.close();
     }
-
-    private List<ProductsDto> getProducts() {
+    // метод, який повертає продкти з amazon за допомогою RestAssured
+   /* private List<ProductsDto> getProducts() {
         RequestSpecification requestSpecification = RestAssured.given();
-        requestSpecification.baseUri("https://www.amazon.com");
+        requestSpecification.baseUri("https://amazon.com/");
         requestSpecification.basePath("/api");
         requestSpecification.queryParam("inc", "title,cost");
         requestSpecification.queryParam("noinfo");
@@ -65,5 +59,26 @@ public class SqlStepsAmazon {
 
         Response response = requestSpecification.get();
         return response.as(ResultsDtoPr.class).getResults2();
+    }*/
+    private List<ProductsDto> getProducts() {
+        RequestSpecification requestSpecification = RestAssured.given()
+                .baseUri("https://amazon.com/")
+                .basePath("/api")
+                .queryParam("inc", "title,cost")
+                .queryParam("noinfo")
+                .queryParam("results2", "3")
+                .header("Accept", "application/json"); // Очікуємо JSON
+
+        Response response = requestSpecification.get();
+
+        // Переконайтеся, що сервер повертає JSON
+        if (!response.contentType().contains("application/json")) {
+            throw new IllegalStateException("Server did not return JSON. Response: " + response.asString());
+        }
+
+        return response.as(ResultsDtoPr.class).getResults2();
     }
+
+
+
 }
