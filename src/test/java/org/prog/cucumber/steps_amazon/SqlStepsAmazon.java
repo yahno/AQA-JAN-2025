@@ -5,7 +5,9 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.prog.dto.PersonDto;
+import org.prog.dto.ProductsDto;
 import org.prog.dto.ResultsDto;
+import org.prog.dto.ResultsDtoPr;
 import org.prog.util.Container;
 import org.testng.annotations.Test;
 
@@ -31,39 +33,37 @@ public class SqlStepsAmazon {
 
     @Test
     public void sqlWrite() throws SQLException, ClassNotFoundException {
-        List<PersonDto> persons = getRandomPeople();
+        List<ProductsDto> products = getProducts();
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection connection =
                 DriverManager.getConnection("jdbc:mysql://localhost:3306/db", "user", "password");
 
         PreparedStatement preparedStatement = connection.prepareStatement(
-                "INSERT INTO Persons (FirstName, LastName, Gender, Title, Nat) VALUES " +
-                        "(?, ?, ?, ?, ?)");
+                "INSERT INTO Persons (Title, Currency, Cost) VALUES " +
+                        "(?, ?, ?)");
 
-        for (PersonDto person : persons) {
-            preparedStatement.setString(1, person.getName().getFirst());
-            preparedStatement.setString(2, person.getName().getLast());
-            preparedStatement.setString(3, person.getGender());
-            preparedStatement.setString(4, person.getName().getTitle());
-            preparedStatement.setString(5, person.getNat());
+        for (ProductsDto product : products) {
+            preparedStatement.setString(1, product.getTitle().getDisplayValue());
+            preparedStatement.setString(2, product.getCost().getPrice().getCurrency());
+            preparedStatement.setString(3, product.getCost().getPrice().getDisplayAmount());
             try {
                 preparedStatement.execute();
             } catch (SQLException e) {
-                System.out.println("Failed to store in DB : " + person.getName().getFirst() + " " + person.getName().getLast());
+                System.out.println("Failed to store in DB : " + product.getTitle().getDisplayValue() + " " + product.getCost().getPrice());
             }
         }
         connection.close();
     }
 
-    private List<PersonDto> getRandomPeople() {
+    private List<ProductsDto> getProducts() {
         RequestSpecification requestSpecification = RestAssured.given();
-        requestSpecification.baseUri("https://randomuser.me/");
+        requestSpecification.baseUri("https://www.amazon.com");
         requestSpecification.basePath("/api");
-        requestSpecification.queryParam("inc", "gender,name,nat");
+        requestSpecification.queryParam("inc", "title,cost");
         requestSpecification.queryParam("noinfo");
-        requestSpecification.queryParam("results", "3");
+        requestSpecification.queryParam("results2", "3");
 
         Response response = requestSpecification.get();
-        return response.as(ResultsDto.class).getResults();
+        return response.as(ResultsDtoPr.class).getResults2();
     }
 }

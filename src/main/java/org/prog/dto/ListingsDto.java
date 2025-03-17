@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ListingDto {
+public class ListingsDto {
     public PriceDto price;
 }

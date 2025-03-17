@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 
 public class ProductsDto {
     public TitleDto title;
-    public ListingDto cost;
+    public ListingsDto cost;
 
 }
