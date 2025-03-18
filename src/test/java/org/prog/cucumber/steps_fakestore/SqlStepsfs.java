@@ -8,10 +8,7 @@ import org.prog.dto_fs.GoodsDto;
 import org.prog.dto_fs.ResultsDtoGoods;
 import org.testng.annotations.Test;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 public class SqlStepsfs {
@@ -41,12 +38,24 @@ public class SqlStepsfs {
                 .queryParam("inc", "title,price,category")
                 .queryParam("results3", "3")
                 .queryParam("limit", "3");
-
-
-
         Response response = requestSpecification.get();
 
-        // Ось правильний спосіб десеріалізації масиву JSON у список
+        // спосіб десеріалізації масиву JSON у список
         return response.jsonPath().getList(".", GoodsDto.class);
+    }
+
+    @Test
+    public void sqlRead() throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection connection =
+                DriverManager.getConnection("jdbc:mysql://localhost:3306/db", "user", "password");
+
+        PreparedStatement preparedStatement = connection.prepareStatement("select * from Goods where Category= ?");
+        preparedStatement.setString(1, "jewelery");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            System.out.println(resultSet.getString("Title") + " " + resultSet.getFloat("Price"));
+        }
+        connection.close();
     }
 }
