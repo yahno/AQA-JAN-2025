@@ -16,6 +16,7 @@ import java.util.List;
 
 public class SqlStepsAmazon {
 
+    //зчитуємо з бази даних
     @Test
     public void sqlRead() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -78,7 +79,4 @@ public class SqlStepsAmazon {
 
         return response.as(ResultsDtoPr.class).getResults2();
     }
-
-
-
 }
