@@ -34,32 +34,19 @@ public class SqlStepsfs {
         }
         connection.close();
     }
-    // метод, який повертає продкти з amazon за допомогою RestAssured
-    //List<ResultsDtoGoods> results = response.jsonPath().getList(".", ResultsDtoGoods.class);
-    /*private List<GoodsDto> getGoods() {
-        RequestSpecification requestSpecification = RestAssured.given();
-        requestSpecification.baseUri("https://fakestoreapi.com/products");
-        //requestSpecification.basePath("/products");
-        requestSpecification.queryParam("inc", "title,price,category");
-        //requestSpecification.queryParam("noinfo");
-        requestSpecification.queryParam("results3", "3");
-        Response response = requestSpecification.get();
-        return response.as(ResultsDtoGoods.class).getResults3();*/
-
-    private List<GoodsDto> getGoods() {
+    // метод getGoods, який повертає продкти з https://fakestoreapi за допомогою RestAssured
+        private List<GoodsDto> getGoods() {
         RequestSpecification requestSpecification = RestAssured.given()
                 .baseUri("https://fakestoreapi.com/products")
                 .queryParam("inc", "title,price,category")
-                .queryParam("results3", "3");
+                .queryParam("results3", "3")
+                .queryParam("limit", "3");
+
+
 
         Response response = requestSpecification.get();
 
         // Ось правильний спосіб десеріалізації масиву JSON у список
         return response.jsonPath().getList(".", GoodsDto.class);
-
-
     }
-
-
-
 }
