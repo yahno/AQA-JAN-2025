@@ -20,8 +20,8 @@ public class ApiTests {
         Response response = requestSpecification.get();
 
         ResultsDto results = response.as(ResultsDto.class);
-        System.out.println(results.getResults().get(0).getName().getFirst());
-        System.out.println(results.getResults().get(0).getName().getLast());
+       System.out.println(results.getResults().get(0).getName().getFirst());
+       System.out.println(results.getResults().get(0).getName().getLast());
 //        String value = response.jsonPath().get("results[0].gender");
 //        System.out.println(value);
 //        Assert.assertEquals(value, "female");
