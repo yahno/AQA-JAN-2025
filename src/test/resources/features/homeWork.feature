@@ -7,6 +7,6 @@
 
 Scenario: Create table Phones
 Given I using selenium go to alloua and search for a phone
-//Given I get PhoneName and PhonePrice price
+Given I get PhoneName and PhonePrice price
 When I store PhoneName and PhonePrice to DB
 Then I print that PhoneName and PhonePrice to console
