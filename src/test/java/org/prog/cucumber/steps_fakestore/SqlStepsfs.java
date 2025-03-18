@@ -29,6 +29,8 @@ public class SqlStepsfs {
             preparedStatement.setString(1, good.getTitle());
             preparedStatement.setFloat(2, good.getPrice());
             preparedStatement.setString(3, good.getCategory());
+            preparedStatement.executeUpdate();
+
         }
         connection.close();
     }
@@ -54,6 +56,10 @@ public class SqlStepsfs {
 
         // Ось правильний спосіб десеріалізації масиву JSON у список
         return response.jsonPath().getList(".", GoodsDto.class);
+
+
     }
+
+
 
 }
