@@ -5,7 +5,9 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
         features = "src/test/resources/features/homeWorkFS.feature",
-        glue = "org.prog.cucumber.steps_fakestore") //шлях де шукати кроки
+        glue = "org.prog.cucumber.steps_fakestore", //шлях де шукати кроки
+        plugin = {"pretty", "html:target/cucumber-report.html"})
+
 
 public class CucumberRunnerFS extends AbstractTestNGCucumberTests {
 
