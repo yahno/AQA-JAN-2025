@@ -16,7 +16,7 @@ import java.util.List;
 public class SqlStepsfs {
     //записуємо в базу даних
 
-    @When("When I store good title, price and good category to DB")
+    @When("I store good title, price and good category to DB")
     public void sqlWrite() throws SQLException, ClassNotFoundException {
         //List<GoodsDto> goods = getGoods();
         List<GoodsDto> goods = RestStepsfs.getGoods();
@@ -31,12 +31,11 @@ public class SqlStepsfs {
             preparedStatement.setFloat(2, good.getPrice());
             preparedStatement.setString(3, good.getCategory());
             preparedStatement.executeUpdate();
-
         }
         connection.close();
     }
 
-    @Then("Then I print that good title, price and specific category to console")
+    @Then("I print that good title, price and specific category to console")
     public void sqlRead() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection connection =
