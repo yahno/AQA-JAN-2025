@@ -1,9 +1,11 @@
 package org.prog.cucumber.steps_fakestore;
 
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-
 import org.prog.dto_fs.GoodsDto;
 import org.prog.dto_fs.ResultsDtoGoods;
 import org.testng.annotations.Test;
@@ -13,7 +15,8 @@ import java.util.List;
 
 public class SqlStepsfs {
     //записуємо в базу даних
-    @Test
+
+    @When("When I store good title, price and good category to DB")
     public void sqlWrite() throws SQLException, ClassNotFoundException {
         List<GoodsDto> goods = getGoods();
         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -31,20 +34,8 @@ public class SqlStepsfs {
         }
         connection.close();
     }
-    // метод getGoods, який повертає продкти з https://fakestoreapi за допомогою RestAssured
-        private List<GoodsDto> getGoods() {
-        RequestSpecification requestSpecification = RestAssured.given()
-                .baseUri("https://fakestoreapi.com/products")
-                .queryParam("inc", "title,price,category")
-                .queryParam("results3", "3")
-                .queryParam("limit", "3");
-        Response response = requestSpecification.get();
 
-        // спосіб десеріалізації масиву JSON у список
-        return response.jsonPath().getList(".", GoodsDto.class);
-    }
-
-    @Test
+    @Then("Then I print that good title, price and specific category to console")
     public void sqlRead() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection connection =
