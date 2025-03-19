@@ -18,7 +18,8 @@ public class SqlStepsfs {
 
     @When("When I store good title, price and good category to DB")
     public void sqlWrite() throws SQLException, ClassNotFoundException {
-        List<GoodsDto> goods = getGoods();
+        //List<GoodsDto> goods = getGoods();
+        List<GoodsDto> goods = RestStepsfs.getGoods();
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection connection =
                 DriverManager.getConnection("jdbc:mysql://localhost:3306/db", "user", "password");

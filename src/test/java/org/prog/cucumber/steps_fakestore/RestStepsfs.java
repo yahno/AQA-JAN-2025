@@ -11,7 +11,10 @@ import java.util.List;
 public class RestStepsfs {
     @Given("Given I using restapi go to fakestore to request goods")
     // метод getGoods, який повертає продкти з https://fakestoreapi за допомогою RestAssured
-    private List<GoodsDto> getGoods() {
+    // public static List<GoodsDto> getGoods()
+    // public List<GoodsDto> getGoods()
+    // Зробити getGoods() статичним і викликати його напряму:
+    public static List<GoodsDto> getGoods(){
         RequestSpecification requestSpecification = RestAssured.given()
                 .baseUri("https://fakestoreapi.com/products")
                 .queryParam("inc", "title,price,category")
