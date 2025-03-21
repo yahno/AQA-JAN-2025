@@ -1,15 +1,10 @@
-package org.prog.cucumber;
-
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
         features = "src/test/resources/features/homeWorkFS.feature",
-        glue = "org.prog.cucumber.steps_fakestore", //шлях де шукати кроки
-        plugin = {"pretty", "html:target/cucumber-report.html"})
-
-
-public class CucumberRunnerFS extends AbstractTestNGCucumberTests {
-
-
+        glue = "org.prog.cucumber.steps_fakestore",
+        plugin = {"pretty", "json:target/cucumber.json"}
+)
+public final class CucumberRunnerFS extends AbstractTestNGCucumberTests {
 }
