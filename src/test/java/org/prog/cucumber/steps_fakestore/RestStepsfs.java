@@ -17,8 +17,8 @@ public class RestStepsfs {
         RequestSpecification requestSpecification = RestAssured.given()
                 .baseUri("https://fakestoreapi.com/products")
                 .queryParam("inc", "title,price,category")
-                .queryParam("results3", "3")
-                .queryParam("limit", "3");
+                //.queryParam("results3", "3");
+                .queryParam("limit", "5");
         Response response = requestSpecification.get();
 
         // спосіб десеріалізації масиву JSON у список
