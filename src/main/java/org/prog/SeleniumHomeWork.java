@@ -17,20 +17,22 @@ public class SeleniumHomeWork {
     public static void main(String[] args) throws InterruptedException {
         WebDriver driver = null;
         try {
-        driver = new EdgeDriver();
-        driver.get("https://allo.ua/ua");
-        WebElement searchInput = driver.findElement(By.name("search"));
-        searchInput.sendKeys("xiaomi");
-        searchInput.sendKeys(Keys.ENTER);
-        Thread.sleep(500);
-        WebElement model = driver.findElement(By.xpath("//div[@class='product-card__content']/a[@href='https://allo.ua/ua/products/mobile/xiaomi-redmi-note-14-pro-8-256gb-midnight-black.html']"));
-        //WebElement model = driver.findElement(By.xpath("//a[@href='https://allo.ua/ua/products/mobile/xiaomi-redmi-note-14-pro-8-256gb-midnight-black.html']"));
-        //WebElement model = driver.findElement(By.xpath("//a[contains(@href, 'Xiaomi Redmi Note 14 Pro 8/256GB Midnight Black')]"));
-        //driver.findElements(By.xpath("//a[contains(@href,'technologies/cookies')]"));
-        System.out.println(model.getText());
-        System.out.println("found");
+            //System.setProperty("webdriver.edge.driver", "C:\\Tools\\edgedriver_win64\\msedgedriver.exe");
+            //driver = new EdgeDriver();
+            driver = new ChromeDriver();
+            driver.get("https://allo.ua/ua");
+            WebElement searchInput = driver.findElement(By.name("search"));
+            searchInput.sendKeys("xiaomi");
+            searchInput.sendKeys(Keys.ENTER);
+            Thread.sleep(500);
+            WebElement model = driver.findElement(By.xpath("//div[@class='product-card__content']/a[@href='https://allo.ua/ua/products/mobile/xiaomi-redmi-note-14-pro-8-256gb-midnight-black.html']"));
+            //WebElement model = driver.findElement(By.xpath("//a[@href='https://allo.ua/ua/products/mobile/xiaomi-redmi-note-14-pro-8-256gb-midnight-black.html']"));
+            //WebElement model = driver.findElement(By.xpath("//a[contains(@href, 'Xiaomi Redmi Note 14 Pro 8/256GB Midnight Black')]"));
+            //driver.findElements(By.xpath("//a[contains(@href,'technologies/cookies')]"));
+            System.out.println(model.getText());
+            System.out.println("found");
         } finally {
-            if (driver !=null){
+            if (driver != null) {
                 driver.quit();
             }
         }

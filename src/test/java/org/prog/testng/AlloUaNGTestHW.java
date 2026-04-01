@@ -1,6 +1,7 @@
 package org.prog.testng;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
@@ -20,7 +21,8 @@ public class AlloUaNGTestHW {
 
     @BeforeSuite
     public void setUp() {
-        driver = new EdgeDriver();
+        //driver = new EdgeDriver();
+        driver = new ChromeDriver();
     }
 
     @AfterSuite

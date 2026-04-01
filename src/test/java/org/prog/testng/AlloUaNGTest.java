@@ -31,22 +31,22 @@ public class AlloUaNGTest {
 //    }
     @Test
     public void ngTest1() {
-        System.out.println("Hello Allo UA Test 5!");
-    }
-    @Test
-    public void ngTest2() {
         System.out.println("Hello Allo UA Test 1!");
     }
     @Test
-    public void ngTest3() {
+    public void ngTest2() {
         System.out.println("Hello Allo UA Test 2!");
     }
     @Test
-    public void ngTest4() {
+    public void ngTest3() {
         System.out.println("Hello Allo UA Test 3!");
     }
     @Test
-    public void ngTest5() {
+    public void ngTest4() {
         System.out.println("Hello Allo UA Test 4!");
+    }
+    @Test
+    public void ngTest5() {
+        System.out.println("Hello Allo UA Test 5!");
     }
 }
